@@ -1,0 +1,53 @@
+@import '~antd/lib/style/themes/default.less';
+
+:global {
+  .ly-sider-btn {
+    height: 40px;
+    background: rgba(246, 247, 250, 1);
+    color: #aaa;
+    font-size: 16px;
+    line-height: 40px;
+    text-align: center;
+    .anticon {
+      cursor: pointer;
+    }
+  }
+  .ly-sider-btn-right {
+    height: 24px;
+    width: 12px;
+    line-height: 24px;
+    position: absolute;
+    right: -12px;
+    top: 240px;
+    font-size: 10px;
+    border-radius: 0 12px 12px 0;
+    text-align: center;
+    background: #e8e8f0;
+    color: #999;
+    cursor: pointer;
+    z-index: 2;
+    .anticon {
+      transform: scale(0.8);
+    }
+    &:hover {
+      color: #666;
+    }
+  }
+  .ly-sider {
+    float: left;
+    .ant-menu-vertical .ant-menu-item,
+    .ant-menu-vertical-left .ant-menu-item,
+    .ant-menu-vertical-right .ant-menu-item,
+    .ant-menu-inline .ant-menu-item,
+    .ant-menu-vertical .ant-menu-submenu-title,
+    .ant-menu-vertical-left .ant-menu-submenu-title,
+    .ant-menu-vertical-right .ant-menu-submenu-title,
+    .ant-menu-inline .ant-menu-submenu-title {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+    .ant-menu {
+      min-height: 100%;
+    }
+  }
+}

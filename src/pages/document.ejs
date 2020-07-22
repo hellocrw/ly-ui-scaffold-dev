@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<link rel="icon" href="./favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+	<noscript>Sorry, we need js to run correctly!</noscript>
+	<div id="<%= context.config.mountElementId %>"></div>
+</body>
+<script>
+	if (!String.prototype.includes) {
+		String.prototype.includes = function (search, start) {
+			'use strict';
+			if (search instanceof RegExp) {
+				throw TypeError('first argument must not be a RegExp');
+			}
+			if (start === undefined) { start = 0; }
+			return this.indexOf(search, start) !== -1;
+		};
+	}
+</script>
+
+</html>
