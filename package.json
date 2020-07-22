@@ -26,6 +26,7 @@
     "classnames": "^2.2.6",
     "echarts": "^4.2.1",
     "echarts-for-react": "^2.0.15-beta.0",
+    "fetch": "^1.1.0",
     "js-base64": "^2.5.2",
     "js-cookie": "^2.2.1",
     "lodash": "^4.17.10",
@@ -48,7 +49,8 @@
     "react-split": "^2.0.7",
     "react-use": "^13.27.0",
     "redux": "^4.0.5",
-    "store2": "^2.10.0"
+    "store2": "^2.10.0",
+    "whatwg-fetch": "^3.2.0"
   },
   "devDependencies": {
     "@babel/polyfill": "^7.8.7",
