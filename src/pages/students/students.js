@@ -43,15 +43,22 @@ class Stduents extends React.Component{
       dataIndex: 'operation',
       render: (text, record) =>
         this.state.students.length >= 1 ? (
-          <Popconfirm title="Sure to delete?" onConfirm={() => this.handleDelete(record.xh)}>
-            <a>Delete</a>
-          </Popconfirm>
+          <span>
+            <Popconfirm title="Sure to delete?" onConfirm={() => this.handleDelete(record.xh)}>
+              <a>删除</a>
+            </Popconfirm>
+            &nbsp;&nbsp;
+            <Popconfirm title="Sure to update?" onConfirm={() => this.updateStu(record)}>
+              <a>修改</a>
+            </Popconfirm>
+          </span>
         ) : null,
     },
   ];
 
   // 删除学生信息
   handleDelete = key => {
+    console.log('delete stu:', key);
     // 访问后端删除信息
     fetch(this.url + `/delete/${key}`, {
       method: "GET",
@@ -66,14 +73,26 @@ class Stduents extends React.Component{
     }).catch(function (e) {
       console.log("fetch fail");
   });
+    this.delete(key);
+  };
+
+  delete(key){
+    console.log('delete............');
     const students = [...this.state.students];
     this.setState({
-      students: students.filter(item => {
-        console.log(item.xh);
-        item.xh !== key;
-      }),
+      students: students.filter(item => item.xh !== key),
     });
-  };
+  }
+
+  // 修改学生信息
+  updateStu = key => {
+    const type = 'update';
+    // 将操作类型传给student-detail
+    this.refs.studentDetail.updateType(type);
+    this.refs.studentDetail.setStu(key);
+    console.log(this.state.students);
+    this.showModal('update');
+  }
 
   // 获取后端学生数据
   getData() {
@@ -95,9 +114,9 @@ class Stduents extends React.Component{
     super(props);
     this.state = {
       students: [],
-      // url:'http://localhost:8080/query',
+      type: '',
     }
-    this.AddStu = this.AddStu.bind(this);
+    this.showModal = this.showModal.bind(this);
   }
   
 
@@ -106,27 +125,47 @@ class Stduents extends React.Component{
     this.getData();
   }
   
-  // 添加学生信息
-  AddStu(){
-    console.log('add student')
+  // 显示对话框
+  showModal(){
     // 弹出对话框 , 父类调用子类的方法---onRef={(ref)=>{ this.studentDetail = ref}}
-    this.studentDetail.showModal()
+    this.studentDetail.showModal();
   }
 
-  // 修改学生信息
-  updateStu(tags){
-    console.log(" update student",tags)
+  // 将数据添加到students上
+  flushData = (data, type) => {
+    if (type == 'add') {
+      const students = [...this.state.students];
+      console.log('add----------------');
+      students.unshift(data);
+      this.setState({
+        students: students
+      });
+    }else if (type == 'update') {
+      const students = [...this.state.students];
+      const res = students.filter(item => item.xh !== data.xh);
+      res.push(data);
+      this.setState({
+        students: res,
+      })
+      console.log(res);
+    }
+    
+  }
+
+  // 添加学生信息
+  add = () => {
+    this.refs.studentDetail.updateType('add');
+    this.showModal()
   }
   
-
   render(){
     return (
       <div>
-        <Button onClick={this.AddStu} type="primary" style={{ marginBottom: 16 }}>
+        <Button onClick={this.add} type="primary" style={{ marginBottom: 16 }}>
           添加学生信息
         </Button>
         <Table dataSource={this.state.students} columns={this.columns} />
-        <StudentDetail  onRef={(ref)=>{ this.studentDetail = ref}}/>
+        <StudentDetail students={this}  onRef={(ref)=>{ this.studentDetail = ref}} ref="studentDetail"/>
       </div>
     )
   }

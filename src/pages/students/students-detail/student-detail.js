@@ -6,7 +6,7 @@ import { values, join } from 'lodash';
 
 class StudentDetail extends React.Component{
 
-  url = 'http://localhost:8080/create';
+  url = 'http://localhost:8080';
 
   constructor(props){
     super(props)
@@ -19,11 +19,32 @@ class StudentDetail extends React.Component{
       zy:'',
       bysj:'',
       byxx:'',
+      type: 'add',
     }
+  }
+
+  // 绑定学生数据
+  setStu(data){
+    this.setState({
+      xh: data.xh,
+      xm: data.xm,
+      xb: data.xb,
+      nl: data.nl,
+      zy: data.zy,
+      bysj: data.bysj,
+      byxx: data.byxx,
+    })
   }
   // onRef获取父组件
   componentDidMount() {
     this.props.onRef(this)
+ }
+
+ // 修改类型
+ updateType(type) {
+  this.setState({
+    type: type,
+  })
  }
 
   // 显示对话框
@@ -35,7 +56,6 @@ class StudentDetail extends React.Component{
 
   // 提交表单数据
   handleOk = e => {
-    console.log(JSON.stringify(this.state));
     var params = new URLSearchParams()
     params.set("xh", this.state.xh)
     params.set("xm",this.state.xm)
@@ -44,17 +64,23 @@ class StudentDetail extends React.Component{
     params.set("zy",this.state.zy)
     params.set("bysj",this.state.bysj)  
     params.set("byxx",this.state.byxx) 
-    let opts = {  
+    let opts = {
       credentials: 'include',  
       method: "POST",  
-      headers: {  
+      headers: {
         "Accept": "application/json,text/plain,*/*",
         "Content-Type": "application/x-www-form-urlencoded"
       },  
       body: params
-    } 
-    // 提交数据 
-    fetch(this.url, opts).then(response => console.log(response));
+    }
+    // 提交数据
+    if(this.state.type == 'add'){
+      fetch(this.url + '/create', opts).then(response => console.log(response));
+    }else if(this.state.type == 'update'){
+      fetch(this.url + '/update', opts).then(response => console.log(response));
+    }
+    // 将表单数据传给students父组件
+    this.props.students.flushData(this.state, this.state.type);
     // 关闭对话框
     this.setState({
       visible: false
@@ -122,9 +148,11 @@ class StudentDetail extends React.Component{
         onOk = {this.handleOk}
         onCancel = {this.handleCancel}>
           <Form {...layout}  name="basic">
-            <Form.Item label="学号" name="xh" rules={[{ required: true}]}   >
+            {this.state.type == 'add' ? (
+              <Form.Item label="学号" name="xh" rules={[{ required: true}]}>
               <Input value={this.state.xh} onChange={this.changeXH.bind(this)} />
             </Form.Item>
+            ) : null}
             <Form.Item label="姓名" name="xm" rules={[{ required: true}]} >
               <Input type="text" value={this.state.xm} onChange={this.changeXM.bind(this)}/>
             </Form.Item>
@@ -148,7 +176,6 @@ class StudentDetail extends React.Component{
       </div>
     )
   }
-  
 }
 
 export default StudentDetail;
