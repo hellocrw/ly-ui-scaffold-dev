@@ -6,6 +6,7 @@ import { urlToList } from '@/utils/utils';
  * [{path:string},{path:string}] => {path,path2}
  * @param  menus
  */
+// 解析出URL路径
 export const getFlatMenuKeys = menuData => {
   let keys = [];
   menuData.forEach(item => {

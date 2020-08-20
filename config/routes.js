@@ -47,6 +47,42 @@ export default [
         icon: 'smile',
         component: './students/students',
       },
+      {
+        path: '/mylayout',
+        name: '布局layout',
+        icon: 'smile',
+        component: './layout/MyLayout',
+      },
+      {
+        path: 'mytable',
+        name: '表格table',
+        icon: 'smile',
+        component: './table/MyTable',
+      },
+      {
+        path: 'myform',
+        name: "表单form",
+        icon: 'smile',
+        component: './form/MyForm',
+      },
+      {
+        path: 'mymodal',
+        name: '对话框modal',
+        icon: 'smile',
+        component: './modal/MyModal',
+      },
+      {
+        path: 'mymoda2',
+        name: '对话框2',
+        icon: 'smile',
+        component: './modal/MyModal',
+      },
+      {
+        path: 'mytree',
+        name: '树',
+        icon: 'smile',
+        component: './tree/MyTree',
+      }
     ],
   },
 ];

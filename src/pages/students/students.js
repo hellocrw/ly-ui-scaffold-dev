@@ -4,6 +4,9 @@ import axios from 'axios';
 import "whatwg-fetch";
 import { Table, Tag, Space, Button, Popconfirm } from 'antd';
 import StudentDetail from "./students-detail/student-detail";
+import {Input} from 'antd'
+
+const { Search } = Input;
 
 class Stduents extends React.Component{
   
@@ -48,9 +51,10 @@ class Stduents extends React.Component{
               <a>删除</a>
             </Popconfirm>
             &nbsp;&nbsp;
-            <Popconfirm title="Sure to update?" onConfirm={() => this.updateStu(record)}>
+            <a onClick={() => this.updateStu(record)}>修改</a>
+            {/* <Popconfirm title="Sure to update?" onConfirm={() => this.updateStu(record)}>
               <a>修改</a>
-            </Popconfirm>
+            </Popconfirm> */}
           </span>
         ) : null,
     },
@@ -77,7 +81,6 @@ class Stduents extends React.Component{
   };
 
   delete(key){
-    console.log('delete............');
     const students = [...this.state.students];
     this.setState({
       students: students.filter(item => item.xh !== key),
@@ -103,7 +106,6 @@ class Stduents extends React.Component{
                   'Accept':'application/json,text/plain,*/*'
               }
     }).then(response => response.json().then((data) => {
-      console.log(data);
       this.setState({
         students: data,
       })
@@ -135,7 +137,6 @@ class Stduents extends React.Component{
   flushData = (data, type) => {
     if (type == 'add') {
       const students = [...this.state.students];
-      console.log('add----------------');
       students.unshift(data);
       this.setState({
         students: students
@@ -149,7 +150,6 @@ class Stduents extends React.Component{
       })
       console.log(res);
     }
-    
   }
 
   // 添加学生信息
@@ -157,13 +157,33 @@ class Stduents extends React.Component{
     this.refs.studentDetail.updateType('add');
     this.showModal()
   }
+
+  // 按名字查询
+  search(key) {
+    fetch(this.url + `/search/${key}`, {
+      method: "GET",
+      mode: "cors",
+      headers:{
+                  'Accept':'application/json,text/plain,*/*'
+              }
+    }).then(response => response.json().then((data) => {
+      this.setState({
+        students: data,
+      })
+    }))
+  }
   
   render(){
     return (
-      <div>
+      <div className={styles.tableLeft} style={{margin:"20px"}}>
         <Button onClick={this.add} type="primary" style={{ marginBottom: 16 }}>
           添加学生信息
         </Button>
+        <Search
+          placeholder="input name to search"
+          onSearch={(value) => this.search(value)}
+          style={{ marginLeft: "40px", width: "200px", }}
+        />
         <Table dataSource={this.state.students} columns={this.columns} />
         <StudentDetail students={this}  onRef={(ref)=>{ this.studentDetail = ref}} ref="studentDetail"/>
       </div>

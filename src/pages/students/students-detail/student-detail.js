@@ -90,7 +90,15 @@ class StudentDetail extends React.Component{
   // 关闭对话框
   handleCancel = e =>{
     this.setState({
-      visible: false
+      visible: false,
+      xh:'',
+      xm:'',
+      xb:'',
+      nl:'',
+      zy:'',
+      bysj:'',
+      byxx:'',
+      type: 'add',
     })
   }
   
@@ -137,6 +145,7 @@ class StudentDetail extends React.Component{
       labelCol: { span: 4 },
       wrapperCol: { span: 16 },
     };
+
     const tailLayout = {
       wrapperCol: { offset: 8, span: 16 },
     };

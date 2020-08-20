@@ -1,4 +1,5 @@
-
-.title {
-  background: rgb(121, 242, 148);
+.tableLeft {
+  background-color: blue;
+  margin: 20px;
+  text-align: center;
 }

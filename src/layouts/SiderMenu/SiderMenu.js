@@ -67,6 +67,7 @@ export default class SiderMenu extends PureComponent {
     const { collapsed, onCollapse, theme, windowH } = this.props;
     const { openKeys } = this.state;
     const defaultProps = collapsed ? {} : { openKeys };
+    // console.log('1=====', this.props);
 
     return (
       <Sider
@@ -90,6 +91,7 @@ export default class SiderMenu extends PureComponent {
             height: windowH - 64 - 40,
           }}
         >
+          {/* Suspense 实现懒加载 */}
           <Suspense fallback={<PageLoading />}>
             <BaseMenu
               {...this.props}

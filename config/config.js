@@ -41,8 +41,11 @@ export default defineConfig({
   hash: true,
   /**
    * 路由相关配置
+   * 
    */
+  // TODO 加载路由配置
   routes: routes,
+
   history: {
     type: 'hash',
   },
