@@ -49,6 +49,7 @@ export default {
         // 跳转首页
         history.push('/index');
       } else {
+        history.push('/index');
         Modal.error({
           title: '登录失败',
           content: meta.message,

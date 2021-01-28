@@ -264,7 +264,7 @@ export function postForm(url, datas, params, config = {}) {
   return new Promise((resolve, reject) => {
     axios
       .post(url, qs.stringify(datas), { params: params, ...config })
-      .then(res => {
+      .then(res => { 
         resolve(res.data);
       })
       .catch(err => {

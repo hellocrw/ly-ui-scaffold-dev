@@ -82,6 +82,18 @@ export default [
         name: '树',
         icon: 'smile',
         component: './tree/MyTree',
+      },
+      {
+        path: 'myroute',
+        name: '路由',
+        icon: 'smile',
+        component: './route/MyRoute',
+      },
+      {
+        path: 'mybrowserrouter',
+        name: 'browserrouter路由',
+        icon: 'smile',
+        component: './route/MyBrowserRouter',
       }
     ],
   },
